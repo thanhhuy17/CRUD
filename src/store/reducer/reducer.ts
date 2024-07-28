@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TypeUser = {
     id: number
@@ -23,7 +23,7 @@ export const reducerSlice = createSlice({
     name: 'listUser',
     initialState: initialStateUser,
     reducers: {
-        addUser: (state, action) => {
+        addUser: (state, action: PayloadAction<TypeUser>) => {
             state.push(action.payload)
             // console.log(action)
 
@@ -34,10 +34,26 @@ export const reducerSlice = createSlice({
             if (findId !== -1) {
                 state.splice((findId), 1)
             }
+        },
+        updateUser: (state, action : PayloadAction<TypeUser>) => {
+            const { id, name, email } = action.payload
+            const updateS = state.find(user => user.id == id)
+            if (updateS) {
+                updateS.name = name
+                updateS.email = email
+            }
+        },
+        getFromStorage: (state, action: PayloadAction<TypeUser[]>) => {
+            return action.payload.map((list) => {
+                const existingList = state.find((item) => item.id === list.id)
+                return existingList ? existingList : { ...list }
+            })
+
+            return action.payload
         }
     }
 })
 
-export const { addUser, deleteUser } = reducerSlice.actions
+export const { addUser, deleteUser, updateUser, getFromStorage } = reducerSlice.actions
 const userReducer = reducerSlice.reducer
 export default userReducer

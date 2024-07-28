@@ -2,7 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
-import { deleteUser } from "../store/reducer/reducer";
+import { deleteUser, getFromStorage } from "../store/reducer/reducer";
+import { useEffect } from "react";
+
+const INFO_STORAGE_KEY = 'LIST_INFO'
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,6 +16,22 @@ const Home = () => {
     // id.preventDefault();
     dispatch(deleteUser(id));
   };
+
+  // Local Storage
+  useEffect(()=>{
+    localStorage.setItem(INFO_STORAGE_KEY, JSON.stringify(users))
+  },[users])
+
+  useEffect(()=>{
+    
+    const getStorage = localStorage.getItem(INFO_STORAGE_KEY);
+    if(getStorage){
+      const localStorageH = JSON.parse(getStorage)
+      // console.log(localStorageH);
+      dispatch(getFromStorage(localStorageH))
+    }
+  },[])
+
   return (
     <div className="container mx-[10%]">
       <h2 className="text-center my-10 text-2xl text-sky-600">
@@ -51,7 +70,7 @@ const Home = () => {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td className="flex gap-3">
-                <Link to="/edit">
+                <Link to={`/edit/${user.id}`}>
                   <Button type="primary">Edit</Button>
                 </Link>
                 <Button danger onClick={() => handleDeleteUser(user.id)}>

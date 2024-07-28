@@ -11,8 +11,8 @@ const Create = () => {
   const [email, setEmail] = useState("");
   const users = useSelector((state: RootState) => state.users);
   const navigate = useNavigate();
-  //   console.log(users);
-  const handleSubmit = (event) => {
+    
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     dispatch(
       addUser({
@@ -23,6 +23,7 @@ const Create = () => {
     );
     navigate("/");
   };
+  console.log( "uSER: ", users);
 
   return (
     <div className="w-[500px] h-[300px] bg-slate-600 mx-auto my-[15%] rounded-xl shadow-slate-300 shadow-xl">
