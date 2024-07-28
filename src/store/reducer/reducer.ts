@@ -35,7 +35,7 @@ export const reducerSlice = createSlice({
                 state.splice((findId), 1)
             }
         },
-        updateUser: (state, action : PayloadAction<TypeUser>) => {
+        updateUser: (state, action) => {
             const { id, name, email } = action.payload
             const updateS = state.find(user => user.id == id)
             if (updateS) {
