@@ -11,7 +11,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.users);
 
-  const handleDeleteUser = (id: number) => {
+  const handleDeleteUser = (id: string) => {
     dispatch(deleteUser(id));
   };
 

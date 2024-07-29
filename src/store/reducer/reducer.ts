@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TypeUser = {
-    id: number
+    id: string
     name: string
     email: string
 }
@@ -32,7 +32,10 @@ export const reducerSlice = createSlice({
     initialState: initialStateUser,
     reducers: {
         addUser: (state, action: PayloadAction<TypeUser>) => {
-            state.push(action.payload)
+            const { name, email } = action.payload
+            if (name && email) {
+                state.push(action.payload)
+            }
             // console.log(action)
 
         },

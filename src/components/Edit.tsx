@@ -10,7 +10,7 @@ const Edit = () => {
   const users = useSelector((state: RootState) => state.users);
   const navigate = useNavigate();
   const { id } = useParams(); // đổi cái Id này ở Param ra String.
-  const exitingUser = users.filter((f) => f.id === Number(id));
+  const exitingUser = users.filter((f) => f.id === (id));
 
   const { name, email } = exitingUser[0];
   const [nameEdit, setNameEdit] = useState(name);

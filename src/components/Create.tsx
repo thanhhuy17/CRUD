@@ -1,15 +1,16 @@
 import { Button, Input } from "antd";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addUser } from "../store/reducer/reducer";
-import { RootState } from "../store/store";
+// import { RootState } from "../store/store";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
 
 const Create = () => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const users = useSelector((state: RootState) => state.users);
+  // const users = useSelector((state: RootState) => state.users);
   const navigate = useNavigate();
 
   const handleSubmit = (event: any) => {
@@ -18,7 +19,7 @@ const Create = () => {
     dispatch(
       addUser({
         // id: users[users.length - 1].id + 1,
-        id: users.length + 1,
+        id: uuidv4(),
         name: name,
         email: email,
       })
