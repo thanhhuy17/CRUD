@@ -2,44 +2,41 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { Button } from "antd";
 import { Link } from "react-router-dom";
-import { deleteUser, getFromStorage } from "../store/reducer/reducer";
+import { deleteUser } from "../store/reducer/reducer";
 import { useEffect } from "react";
 
-const INFO_STORAGE_KEY = 'LIST_INFO'
+const INFO_STORAGE_KEY = "LIST_INFO";
 
 const Home = () => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.users);
-  //   console.log(users);
 
   const handleDeleteUser = (id: number) => {
-    // id.preventDefault();
     dispatch(deleteUser(id));
   };
 
-  // Local Storage
-  useEffect(()=>{
-    localStorage.setItem(INFO_STORAGE_KEY, JSON.stringify(users))
-  },[users])
+  // Set Local Storage
+  useEffect(() => {
+    window.localStorage.setItem(INFO_STORAGE_KEY, JSON.stringify(users));
+  }, [users]);
 
-  useEffect(()=>{
-    
-    const getStorage = localStorage.getItem(INFO_STORAGE_KEY);
-    if(getStorage){
-      const localStorageH = JSON.parse(getStorage)
-      // console.log(localStorageH);
-      dispatch(getFromStorage(localStorageH))
-    }
-  },[])
+  // Get Local Storage
+  // useEffect(() => {
+  //   const getStorage = window.localStorage.getItem(INFO_STORAGE_KEY);
+  //   if (getStorage) {
+  //     const localStorageH = JSON.parse(getStorage);
+  //     dispatch(getFromStorage(localStorageH));
+  //   }
+  // }, []);
 
   return (
     <div className="container mx-[10%]">
       <h2 className="text-center my-10 text-2xl text-sky-600">
         CRUD App With TypeScript and React-Router-Dom
       </h2>
-      <Link to={"/create"}>
+      <Link to={"/create"} className="flex items-center">
         <Button
-          className="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500"
+          className="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 "
           type="primary"
         >
           Create +

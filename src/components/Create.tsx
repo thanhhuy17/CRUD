@@ -11,19 +11,21 @@ const Create = () => {
   const [email, setEmail] = useState("");
   const users = useSelector((state: RootState) => state.users);
   const navigate = useNavigate();
-    
+
   const handleSubmit = (event: any) => {
     event.preventDefault();
+
     dispatch(
       addUser({
-        id: users[users.length - 1].id + 1,
+        // id: users[users.length - 1].id + 1,
+        id: users.length + 1,
         name: name,
         email: email,
       })
     );
     navigate("/");
   };
-  console.log( "uSER: ", users);
+  // console.log( "uSER: ", users);
 
   return (
     <div className="w-[500px] h-[300px] bg-slate-600 mx-auto my-[15%] rounded-xl shadow-slate-300 shadow-xl">

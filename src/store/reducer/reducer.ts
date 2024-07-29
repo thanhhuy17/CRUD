@@ -6,18 +6,26 @@ type TypeUser = {
     email: string
 }
 
-const initialStateUser: TypeUser[] = [{
-    id: 1,
-    name: 'Ben Nguyen',
-    email: 'bennguyen@gmail.com'
-},
-{
-    id: 2,
-    name: 'Huy Nguyen',
-    email: 'huynguyen@gmail.com'
-}]
+// const initialStateUser: TypeUser[] = [{
+//     id: 1,
+//     name: 'Ben Nguyen',
+//     email: 'bennguyen@gmail.com'
+// },
+// {
+//     id: 2,
+//     name: 'Huy Nguyen',
+//     email: 'huynguyen@gmail.com'
+// }]
 
 // const initialStateUser: TypeUser[] = []
+
+const initialStateUser: TypeUser[] = (() => {
+    const storageData = localStorage.getItem('LIST_INFO');
+    if (storageData) {
+        return JSON.parse(storageData);
+    }
+    return [];
+})();
 
 export const reducerSlice = createSlice({
     name: 'listUser',
@@ -43,17 +51,12 @@ export const reducerSlice = createSlice({
                 updateS.email = email
             }
         },
-        getFromStorage: (state, action: PayloadAction<TypeUser[]>) => {
-            return action.payload.map((list) => {
-                const existingList = state.find((item) => item.id === list.id)
-                return existingList ? existingList : { ...list }
-            })
-
-            return action.payload
-        }
+        // getFromStorage: (state, action: PayloadAction<TypeUser[]>) => {
+        //     return action.payload
+        // }
     }
 })
 
-export const { addUser, deleteUser, updateUser, getFromStorage } = reducerSlice.actions
+export const { addUser, deleteUser, updateUser } = reducerSlice.actions
 const userReducer = reducerSlice.reducer
 export default userReducer

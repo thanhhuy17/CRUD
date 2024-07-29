@@ -9,7 +9,7 @@ const Edit = () => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.users);
   const navigate = useNavigate();
-  const { id } = useParams(); // do cai Id nay Param ra String.
+  const { id } = useParams(); // đổi cái Id này ở Param ra String.
   const exitingUser = users.filter((f) => f.id === Number(id));
 
   const { name, email } = exitingUser[0];
